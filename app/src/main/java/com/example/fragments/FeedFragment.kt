@@ -12,6 +12,8 @@ import com.example.models.Feeds
 import com.example.healthsphere.R
 import com.example.recyclerview.FeedAdapterClass
 import com.example.sqlite.FeedDatabaseHelper
+import org.json.JSONArray
+import java.io.InputStream
 
 class FeedFragment : Fragment() {
     private lateinit var adapterClass: FeedAdapterClass
@@ -33,36 +35,67 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dbHelper = FeedDatabaseHelper(requireContext())
-        datainitialize()
-        val layoutManager = LinearLayoutManager(context)
-
+        feedsArrayList = arrayListOf()
         recyclerView = view.findViewById(R.id.Feedrecycler_view)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         adapterClass = FeedAdapterClass(feedsArrayList)
         recyclerView.adapter = adapterClass
+        loadFeedsFromJson()
+//        super.onViewCreated(view, savedInstanceState)
+//        dbHelper = FeedDatabaseHelper(requireContext())
+//        datainitialize()
+//        val layoutManager = LinearLayoutManager(context)
+//
+//        recyclerView = view.findViewById(R.id.Feedrecycler_view)
+//        recyclerView.layoutManager = layoutManager
+//        recyclerView.setHasFixedSize(true)
+//        adapterClass = FeedAdapterClass(feedsArrayList)
+//        recyclerView.adapter = adapterClass
     }
 
-    private fun datainitialize() {
+    private fun loadFeedsFromJson() {
+        val json: String?
+        try {
+            val inputStream: InputStream = requireContext().assets.open("feeds.json")
+            json = inputStream.bufferedReader().use { it.readText() }
+            val jsonArray = JSONArray(json)
 
-        feedsArrayList = arrayListOf()
-
-        // Fetching data from the SQLite database
-        val cursor: Cursor = dbHelper.getAllFeeds()
-
-        // Loop through the cursor and add to the Feeds list
-        if (cursor.moveToFirst()) {
-            do {
-                val image = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_IMAGE_URL))
-                val heading = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_HEADING))
-                val description = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_DESC))
-
-                // Add each feed item to the feedsArrayList
-                feedsArrayList.add(Feeds(image, heading, description))
-            } while (cursor.moveToNext())
+            for (i in 0 until jsonArray.length()) {
+                val feedObject = jsonArray.getJSONObject(i)
+                val imageUrl = feedObject.getString("image_url")
+                val heading = feedObject.getString("heading")
+                val description = feedObject.getString("description")
+                feedsArrayList.add(Feeds(imageUrl, heading, description))
+            }
+            // Notify adapter that data has changed
+            adapterClass.notifyDataSetChanged()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        cursor.close()
     }
+
+
+
+//    private fun datainitialize() {
+//
+//        feedsArrayList = arrayListOf()
+//
+//        // Fetching data from the SQLite database
+//        val cursor: Cursor = dbHelper.getAllFeeds()
+//
+//        // Loop through the cursor and add to the Feeds list
+//        if (cursor.moveToFirst()) {
+//            do {
+//                val image = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_IMAGE_URL))
+//                val heading = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_HEADING))
+//                val description = cursor.getString(cursor.getColumnIndexOrThrow(FeedDatabaseHelper.COLUMN_DESC))
+//
+//                // Add each feed item to the feedsArrayList
+//                feedsArrayList.add(Feeds(image, heading, description))
+//            } while (cursor.moveToNext())
+//        }
+//        cursor.close()
+//    }
 
 }
