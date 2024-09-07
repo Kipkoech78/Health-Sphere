@@ -109,6 +109,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Doctor" />
+
+
+                <EditText
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/etFeedHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Enter Feed Heading"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/etFeedDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Enter Feed Description"
+                    android:inputType="textMultiLine" />
+
+                <EditText
+                    android:id="@+id/addImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Choose Image" />
+
+                <Button
+                    android:id="@+id/btnSaveFeed"
+                    android:layout_width="150dp"
+                    android:layout_height="45dp"
+                    android:text="Save Feed" />
+
         </LinearLayout>
+
+
+
+
     </ScrollView>
 </RelativeLayout>

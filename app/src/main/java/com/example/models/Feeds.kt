@@ -1,7 +1,7 @@
-package com.example.healthsphere
+package com.example.models
 
 data class Feeds(
-    var titleImage : Int,
+    var imageUrl: String,
     var heading: String,
     var feedDesc: String
 )

@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.drugs.AddDrugsActivity
 import com.example.fragments.CommunityFragment
 import com.example.fragments.ContactFragment
 import com.example.fragments.FeedFragment
@@ -34,8 +35,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var fragmentmanager : FragmentManager
     private lateinit var binding : ActivityMainBinding
     private lateinit var toolbar_title: TextView
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -48,9 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
 
-//        val editor = sharedPreferences.edit()
-//        editor.putString("role", "Doctor") // or the appropriate role value
-//        editor.apply()
+
         toolbar_title.text = "Welcome $username."
         // Apply window insets to toolbar to ensure it doesn't overlap with the system UI
         ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, insets ->
@@ -76,19 +73,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.bottom_home -> openFragment(HomeFragment())
                 R.id.workouts -> openFragment(WorkoutFragment())
                 R.id.feed -> openFragment(FeedFragment())
-                R.id.Community -> {
-                    val userRole = sharedPreferences.getString("role", "")
-
-                    if (userRole.equals("Doctor", ignoreCase = true)) {
-                        // Open doctor page
-                        val intent = Intent(this, DoctorDashboardActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // Handle other roles or show error
-                        Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show()
-                    }
-                    Log.d("UserRole", "Role: $userRole")
+                R.id.Community ->{
+                    val intent = Intent(this,DoctorDashboardActivity::class.java)
+                    startActivity(intent)
                 }
+//                R.id.Community -> {
+//                    val userRole = sharedPreferences.getString("role", "")
+//                    if (userRole.equals("Doctor", ignoreCase = true)) {
+//                        // Open doctor page
+//                        val intent = Intent(this, DoctorDashboardActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        // Handle other roles or show error
+//                        Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show()
+//                    }
+//                    Log.d("UserRole", "Role: $userRole")
+//                }
             }
             true
         }
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_prime -> openFragment(PrimeFragment())
+            R.id.nav_admin -> openFragment(PrimeFragment())
             R.id.nav_profile -> {
                 // Start the ProfileActivity instead of a fragment
                 val intent = Intent(this, EditProfile::class.java)

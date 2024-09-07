@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="2dp"
-            android:text="Enjoy our qualified and 24hr Available Doctors"
+            android:text="Enjoy our 24hr7 Service"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"

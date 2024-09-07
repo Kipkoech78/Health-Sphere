@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
@@ -40,8 +41,6 @@ android {
         viewBinding = true
     }
 }
-
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -81,4 +80,6 @@ dependencies {
 
     implementation (libs.picasso)
 
+    implementation (libs.glide.v4120)
+    annotationProcessor (libs.compiler)
 }

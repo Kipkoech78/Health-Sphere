@@ -1,9 +1,11 @@
 [versions]
 agp = "8.4.1"
 androidxJunit = "1.1.3"
+compiler = "4.12.0"
 firebaseAnalyticsKtx = "22.1.0"
 firebaseBom = "33.2.0"
 glide = "4.16.0"
+glideVersion = "4.12.0"
 googleFirebaseFirestoreKtx = "25.1.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -25,11 +27,13 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-junit-v113 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 com-google-firebase-firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "googleFirebaseFirestoreKtx" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "googleFirebaseFirestoreKtx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-v4120 = { module = "com.github.bumptech.glide:glide", version.ref = "glideVersion" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -6,13 +6,13 @@
     <group
         android:checkableBehavior="single"/>
     <item
-        android:id="@+id/nav_prime"
-        android:title="Settings"
+        android:id="@+id/nav_profile"
+        android:title="Profile"
         android:icon="@drawable/vials_solid"/>
     <item
-        android:title="Profile"
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/stethoscope_solid"
+        android:title="settings"
+        android:id="@+id/nav_admin"
+        android:icon="@drawable/btn_3"
         />
     <item
         android:title="Health"

@@ -1,5 +1,7 @@
 package com.example.drugs
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -13,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.firestore.FirestoreClass
 import com.example.healthsphere.R
 import com.example.models.Doctor
+import com.example.sqlite.FeedDatabaseHelper
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AddDrugsActivity : AppCompatActivity() {
@@ -23,6 +26,12 @@ class AddDrugsActivity : AppCompatActivity() {
     private lateinit var etDoctorFees: EditText
     private lateinit var btnAddDoctor: Button
     private lateinit var spinnerCategory: Spinner
+    //add feed
+    private lateinit var feedHeading: EditText
+    private lateinit var feedDesc: EditText
+    private lateinit var btnSaveFeed: Button
+    private lateinit var addImage: EditText
+    private var selectedImageRes: Int = R.drawable.banner
 
 
     private lateinit var etDrugName: EditText
@@ -42,6 +51,36 @@ class AddDrugsActivity : AppCompatActivity() {
         btnChooseImage = findViewById(R.id.btnChooseImage)
         btnSubmit = findViewById(R.id.btnSubmit)
         etPrice = findViewById(R.id.etPrice)
+        //add Feed
+
+        feedHeading = findViewById(R.id.etFeedHeading)
+        feedDesc = findViewById(R.id.etFeedDesc)
+        btnSaveFeed = findViewById(R.id.btnSaveFeed)
+        addImage = findViewById(R.id.addImage)
+
+
+
+
+        btnSaveFeed.setOnClickListener {
+            val heading = feedHeading.text.toString()
+            val desc = feedDesc.text.toString()
+            val imageUrl = addImage.text.toString()
+
+            if (heading.isNotEmpty() && desc.isNotEmpty()) {
+                val dbHelper = FeedDatabaseHelper(this)
+                val result = dbHelper.insertFeed(imageUrl, heading, desc)
+
+                if (result != -1L) {
+                    Toast.makeText(this, "Feed added successfully", Toast.LENGTH_SHORT).show()
+                    finish() // Close activity after saving
+                } else {
+                    Toast.makeText(this, "Error adding feed", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please fill in all details", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 //add Doc
         spinnerCategory = findViewById(R.id.spinnerCategory)
         etDoctorName = findViewById(R.id.etDoctorName)

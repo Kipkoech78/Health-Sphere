@@ -47,7 +47,6 @@ class FirestoreClass {
         }
         return currentUserID
     }
-
     fun getUserDetails(activity: Activity){
         //here we pass the collection name from which we want the data
         mFirestore.collection(Constants.USERS)
@@ -65,10 +64,9 @@ class FirestoreClass {
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 //key : logged_in_username
                 //value: Username
-                editor.putString(
-                    Constants.LOGGED_IN_USERNAME, "${user.userName}",
-                )
+                editor.putString(Constants.LOGGED_IN_USERNAME, "${user.userName}",)
                 editor.putString(Constants.LOGGED_IN_USEREMAIL, "${user.email}")
+                editor.putString(Constants.ADMIN, "${user.role}")
                 editor.apply()
 
                 when( activity){

@@ -1,10 +1,12 @@
 package com.example.recyclerview
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.healthsphere.Feeds
+import com.bumptech.glide.Glide
+import com.example.models.Feeds
 import com.example.healthsphere.R
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -18,10 +20,21 @@ class FeedAdapterClass(private val dataList1: ArrayList<Feeds>):RecyclerView.Ada
     }
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem = dataList1[position]
-        holder.rvImage.setImageResource(currentItem.titleImage)
+        Glide.with(holder.itemView.context)
+            .load(currentItem.imageUrl)
+            .placeholder(R.drawable.baseline_feed_24) // Optional: add a placeholder image
+            .into(holder.rvImage)
+
         holder.rvTitle.text = currentItem.heading
         holder.rvFeedDesc.text = currentItem.feedDesc
     }
+
+//    override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
+//        val currentItem = dataList1[position]
+//        holder.rvImage.setImageResource(currentItem.titleImage)
+//        holder.rvTitle.text = currentItem.heading
+//        holder.rvFeedDesc.text = currentItem.feedDesc
+//    }
     class ViewHolderClass(itemView: View):RecyclerView.ViewHolder(itemView) {
         val rvImage: ShapeableImageView = itemView.findViewById(R.id.title_image)
         val rvTitle: TextView = itemView.findViewById(R.id.feedHeading)
