@@ -33,7 +33,7 @@ class MedicineActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         medicineAdapter = MedicineAdapter(medicines){ medicine ->
             val intent = Intent(this, MedicineDetailActivity::class.java).apply{
-                putExtra("medicine_name", medicine.drugNameadd)
+                putExtra("medicine_name", medicine.drugName)
                 putExtra("medicine_description", medicine.description)
                 putExtra("medicine_price", medicine.price)
                 putExtra("medicine_image", medicine.drugImg)
