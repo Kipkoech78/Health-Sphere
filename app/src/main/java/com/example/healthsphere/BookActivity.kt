@@ -119,6 +119,7 @@ class BookActivity : BazeActivity() {
             startActivity(backintent)
         }
 
+
         appointmentButton.setOnClickListener {
             // Collect appointment details
             val name = tv.text.toString()
@@ -158,6 +159,7 @@ class BookActivity : BazeActivity() {
                         db.collection("appointments")
                             .add(appointment)
                             .addOnSuccessListener {
+                                showProgressDialog(resources.getString(R.string.booking))
                                 // Handle success, maybe show a message
                                 val detIntent = Intent(this, OrderDetActivity::class.java)
                                 startActivity(detIntent)
@@ -185,5 +187,4 @@ class BookActivity : BazeActivity() {
             insets
         }
     }
-
 }

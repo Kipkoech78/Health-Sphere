@@ -20,6 +20,7 @@
 
             <EditText
                 android:id="@+id/etDrugName"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Drug Name" />
@@ -27,6 +28,7 @@
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
+                android:inputType="text"
                 android:layout_height="wrap_content"
                 android:hint="Description"
                 android:minLines="3" />
@@ -37,11 +39,12 @@
                 android:hint="Price"
                 android:inputType="numberDecimal" />
 
-            <Button
-                android:id="@+id/btnChooseImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose Image" />
+            <EditText
+                android:id="@+id/ImageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="text"
+                android:hint=" Image Url" />
 
             <Button
                 android:id="@+id/btnSubmit"

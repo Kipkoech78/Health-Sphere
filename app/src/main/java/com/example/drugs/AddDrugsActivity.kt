@@ -37,7 +37,7 @@ class AddDrugsActivity : AppCompatActivity() {
     private lateinit var etDrugName: EditText
     private lateinit var etDescription: EditText
     private lateinit var etPrice: EditText
-    private lateinit var btnChooseImage: Button
+    private lateinit var ImageUrl: EditText
     private lateinit var btnSubmit: Button
     private lateinit var firestoreClass: FirestoreClass
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class AddDrugsActivity : AppCompatActivity() {
         firestoreClass = FirestoreClass()
         etDrugName = findViewById(R.id.etDrugName)
         etDescription = findViewById(R.id.etDescription)
-        btnChooseImage = findViewById(R.id.btnChooseImage)
+        ImageUrl = findViewById(R.id.ImageUrl)
         btnSubmit = findViewById(R.id.btnSubmit)
         etPrice = findViewById(R.id.etPrice)
         //add Feed
@@ -104,10 +104,12 @@ class AddDrugsActivity : AppCompatActivity() {
             val drugName = etDrugName.text.toString()
             val price = etPrice.text.toString()
             val description = etDescription.text.toString()
+            val drugImg = ImageUrl.text.toString()
             if (drugName.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty()) {
                 firestoreClass.addDrug(
                     drugName = drugName,
                     price = price,
+                    drugImg = drugImg,
                     description = description,
                     onSuccess = {
 

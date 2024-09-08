@@ -103,13 +103,15 @@ class FirestoreClass {
         drugName: String,
         price: String,
         description: String,
+        drugImg: String,
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         val drugItem = Medicine(
             drugName = drugName,
             price = price,
-            description = description
+            description = description,
+            drugImg = drugImg
         )
 
         mFirestore.collection(Constants.DRUG)  // Make sure Constants.DRUG points to the correct collection
@@ -122,20 +124,6 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
-
-//    fun addDoctor(doctor: Doctor, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-//        val firestore = FirebaseFirestore.getInstance()
-//        firestore.collection("doctors")
-//            .add(doctor)
-//            .addOnSuccessListener {
-//                onSuccess()
-//            }
-//            .addOnFailureListener { e ->
-//                onFailure(e)
-//            }
-//    }
-
-
     private val db = FirebaseFirestore.getInstance()
     fun getDoctorBookingsForUser(username: String, onSuccess: (List<DoctorBooking>) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("appointments")
@@ -191,7 +179,6 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
-
     fun getCartItemsByUser(username: String, onSuccess: (List<CartItem>) -> Unit, onFailure: (Exception) -> Unit) {
         mFirestore.collection(Constants.CART)
             .whereEqualTo("username", username)
@@ -208,7 +195,6 @@ class FirestoreClass {
             }
     }
     // FirestoreClass.kt
-
     fun clearCartItems(username: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         mFirestore.collection(Constants.CART)
             .whereEqualTo("username", username)

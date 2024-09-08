@@ -21,7 +21,6 @@
             android:layout_gravity="center"
             android:src="@drawable/arrow_back"/>
     </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

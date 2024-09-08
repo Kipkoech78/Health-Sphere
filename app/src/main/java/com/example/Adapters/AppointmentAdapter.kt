@@ -23,14 +23,16 @@ class AppointmentAdapter(private val context: Context, private val appointments:
         val tvDate = view.findViewById<TextView>(R.id.tvDate)
         val tvTime = view.findViewById<TextView>(R.id.tvTime)
         val tvFees = view.findViewById<TextView>(R.id.tvFees)
-        val Email = view.findViewById<TextView>(R.id.Email)
-//        val tvName = view.findViewById<TextView>(R.id.tvAppointmentName)
+        val Email = view.findViewById<TextView>(R.id.appointeeEmail)
+        val tvName = view.findViewById<TextView>(R.id.docName)
         val tvStatus = view.findViewById<TextView>(R.id.tvAppointmentStatus)
-        //val username = view.findViewById<TextView>(R.id.tvFees)
-        Email.text = appointment?.userEmail
-        tvDate.text = appointment?.date
-        tvTime.text = appointment?.time
+        val username  = view.findViewById<TextView>(R.id.appointee)
+        Email.text = "Patient's Email: ${appointment?.userEmail}"
+        tvName.text = "Doc: ${appointment?.name}"
+        tvDate.text = "Date: ${appointment?.date}"
+        tvTime.text = "Time: ${appointment?.time}"
         tvFees.text = "Fees: Ksh ${appointment?.fees}"
+        username.text = "Patient Name: ${appointment?.username}"
         // Set the status text and background color based on the appointment status
         when (appointment?.status) {
             "Active" -> {
@@ -51,15 +53,6 @@ class AppointmentAdapter(private val context: Context, private val appointments:
             }
         }
 
-//        tvName.text = appointment?.name
-//        val isCompleted = appointment?.completed ?: false
-//        if (isCompleted) {
-//            tvStatus.text = "Completed"
-//            tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
-//        } else {
-//            tvStatus.text = "Active"
-//            tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_green_dark))
-//        }
 
         return view
     }

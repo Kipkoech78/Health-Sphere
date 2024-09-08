@@ -66,6 +66,9 @@ dependencies {
     implementation(libs.firebase.bom)
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation(libs.com.google.firebase.firebase.firestore.ktx)
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
     // Firebase Firestore dependency
 
     implementation (libs.firebase.firestore)

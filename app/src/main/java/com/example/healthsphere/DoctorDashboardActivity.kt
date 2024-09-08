@@ -38,6 +38,7 @@ class DoctorDashboardActivity : BazeActivity() {
 
         // Fetch appointments and update UI
         fetchAppointmentsForDoctor()
+        showProgressDialog(resources.getString(R.string.loading))
 
         // Schedule periodic updates
         handler.postDelayed(object : Runnable {
@@ -49,7 +50,6 @@ class DoctorDashboardActivity : BazeActivity() {
     }
 
     private fun fetchAppointmentsForDoctor() {
-
         val doctorEmail = getLoggedInDoctorEmail()
         val currentTime = System.currentTimeMillis()
 
@@ -58,6 +58,7 @@ class DoctorDashboardActivity : BazeActivity() {
             .whereEqualTo("completed", false)
             .get()
             .addOnSuccessListener { documents ->
+                hideProgressDialog()
                 var totalFees = 0
                 val appointments = mutableListOf<Appointment>()
 
@@ -112,6 +113,7 @@ class DoctorDashboardActivity : BazeActivity() {
                 }
             }
             .addOnFailureListener { exception ->
+                hideProgressDialog()
                 Log.w("FirestoreError", "Error getting documents: ", exception)
             }
     }

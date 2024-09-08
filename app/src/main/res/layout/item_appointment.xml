@@ -6,26 +6,28 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
     <TextView
-        android:id="@+id/Email"
+        android:id="@+id/appointeeEmail"
         android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:text="Lkipkoech@gmail.coom"
         android:textSize="16sp"/>
     <TextView
-        android:id="@+id/username"
-        android:layout_below="@+id/Email"
+        android:id="@+id/appointee"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_below="@+id/appointeeEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
-
     <TextView
         android:id="@+id/tvDate"
-        android:layout_below="@+id/username"
+        android:layout_below="@+id/appointee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date: 2024-09-06"
         android:textSize="16sp"/>
-
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
@@ -33,7 +35,6 @@
         android:text="Time: 10:00"
         android:textSize="16sp"
         android:layout_below="@id/tvDate"/>
-
     <TextView
         android:id="@+id/tvFees"
         android:layout_width="wrap_content"
@@ -43,27 +44,38 @@
         android:layout_below="@id/tvTime"/>
     <LinearLayout
         android:layout_below="@id/tvFees"
-        android:gravity="center"
+        android:gravity="start"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:paddingRight="20dp"
         android:orientation="horizontal"
         android:padding="8dp">
-
         <TextView
-            android:id="@+id/tvAppointmentName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/docName"
+            android:layout_width="0dp"
+            android:layout_weight="0.50"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start|center"
+            android:layout_height="match_parent"
             android:textSize="16sp" />
-
         <TextView
             android:id="@+id/tvAppointmentStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.30"
+            android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:textSize="16sp"
+            android:gravity="center"
             android:textColor="@android:color/white"
             android:padding="4dp"
             android:background="@drawable/status_background" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:layout_gravity="end"
+            android:src="@drawable/baseline_delete_outline_24"
+            />
     </LinearLayout>
-
 </RelativeLayout>

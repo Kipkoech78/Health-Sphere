@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="8dp"
+    android:background="@drawable/feedlistbackground"
+    android:padding="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/title_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/healthimg1"
+        app:shapeAppearanceOverlay="@style/RoundCorner"/>
+
+    <TextView
+        android:id="@+id/medHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="what is the replication crisis?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/title_image"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="8dp"
+        />
+    <LinearLayout
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/medHeading"
+        android:layout_toEndOf="@id/title_image">
+
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/price"
+            android:paddingLeft="10dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.30"
+            android:text="900.00"
+            android:gravity="start|center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="0.30"
+            android:gravity="start|center"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:id="@+id/buyBtn"
+            android:background="@drawable/accountbtn"
+            android:layout_weight="0.40"
+            android:text="Buy"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</RelativeLayout>
