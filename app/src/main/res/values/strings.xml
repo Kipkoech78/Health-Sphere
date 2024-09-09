@@ -56,11 +56,20 @@
     <string name="description_description">Description for slide number %1$d</string>
     <string name="category_prompt">Select Category</string>
     <string-array name="doctor_categories">
+        <item>Select Category</item>
         <item>Family Physician</item>
         <item>Dentist</item>
         <item>Optician</item>
         <item>Surgeon</item>
         <item>Pharmacy</item>
+    </string-array>
+    <string-array name="medicine_categories">
+        <item>Select Category</item>
+        <item>Over The counter</item>
+        <item>Malaria</item>
+        <item>measles</item>
+        <item>Common Cold</item>
+        <item>Heart Problems</item>
     </string-array>
 
 </resources>

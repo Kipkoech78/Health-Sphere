@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import com.example.drugs.DrugCategoriesActivity
 import com.example.healthsphere.FindDoctors
 import com.example.healthsphere.LabTestActivity
 import com.example.drugs.MedicineActivity
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         }
         medicine.setOnClickListener {
            //display medicine
-            val intentMed = Intent(activity, MedicineActivity::class.java)
+            val intentMed = Intent(activity, DrugCategoriesActivity::class.java)
             startActivity(intentMed)
         }
         orderDetails.setOnClickListener {

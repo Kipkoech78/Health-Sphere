@@ -45,6 +45,13 @@
                 android:layout_height="50dp"
                 android:inputType="text"
                 android:hint=" Image Url" />
+            <Spinner
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:id="@+id/spinnerDrugCategory"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:prompt="@string/category_prompt" />
 
             <Button
                 android:id="@+id/btnSubmit"

@@ -1,5 +1,4 @@
 package com.example.drugs
-
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +16,6 @@ import com.example.healthsphere.R
 import com.example.models.Doctor
 import com.example.sqlite.FeedDatabaseHelper
 import com.google.firebase.firestore.FirebaseFirestore
-
 class AddDrugsActivity : AppCompatActivity() {
     private lateinit var etDoctorName: EditText
     private lateinit var etDoctorAddress: EditText
@@ -26,14 +24,13 @@ class AddDrugsActivity : AppCompatActivity() {
     private lateinit var etDoctorFees: EditText
     private lateinit var btnAddDoctor: Button
     private lateinit var spinnerCategory: Spinner
+    private lateinit var spinnerDrugCategory: Spinner
     //add feed
     private lateinit var feedHeading: EditText
     private lateinit var feedDesc: EditText
     private lateinit var btnSaveFeed: Button
     private lateinit var addImage: EditText
     private var selectedImageRes: Int = R.drawable.banner
-
-
     private lateinit var etDrugName: EditText
     private lateinit var etDescription: EditText
     private lateinit var etPrice: EditText
@@ -46,20 +43,23 @@ class AddDrugsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_drugs)
         // Initialize FirestoreClass here
         firestoreClass = FirestoreClass()
+
+
         etDrugName = findViewById(R.id.etDrugName)
         etDescription = findViewById(R.id.etDescription)
         ImageUrl = findViewById(R.id.ImageUrl)
         btnSubmit = findViewById(R.id.btnSubmit)
         etPrice = findViewById(R.id.etPrice)
+        spinnerDrugCategory = findViewById(R.id.spinnerDrugCategory)
+        val drugcategories = resources.getStringArray(R.array.medicine_categories)
+        val adapter0 = ArrayAdapter(this, android.R.layout.simple_spinner_item, drugcategories)
+        adapter0.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCategory.adapter = adapter0
         //add Feed
-
         feedHeading = findViewById(R.id.etFeedHeading)
         feedDesc = findViewById(R.id.etFeedDesc)
         btnSaveFeed = findViewById(R.id.btnSaveFeed)
         addImage = findViewById(R.id.addImage)
-
-
-
 
         btnSaveFeed.setOnClickListener {
             val heading = feedHeading.text.toString()
@@ -89,30 +89,28 @@ class AddDrugsActivity : AppCompatActivity() {
         etDoctorMobile = findViewById(R.id.etDoctorMobile)
         etDoctorFees = findViewById(R.id.etDoctorFees)
         btnAddDoctor = findViewById(R.id.btnAddDoctor)
-
         // Set up the Spinner with categories
         val categories = resources.getStringArray(R.array.doctor_categories)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCategory.adapter = adapter
-
         btnAddDoctor.setOnClickListener {
             addDoctorToFirestore()
         }
-
         btnSubmit.setOnClickListener {
             val drugName = etDrugName.text.toString()
             val price = etPrice.text.toString()
             val description = etDescription.text.toString()
             val drugImg = ImageUrl.text.toString()
-            if (drugName.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty()) {
+            val category = spinnerDrugCategory.selectedItem.toString()
+            if (drugName.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty() && category == "Select Category")  {
                 firestoreClass.addDrug(
                     drugName = drugName,
                     price = price,
                     drugImg = drugImg,
                     description = description,
+                    category = category,
                     onSuccess = {
-
                         // Handle success (e.g., show a message or navigate to another activity)
                         Toast.makeText(this, "success drug added", Toast.LENGTH_SHORT).show()
                         etDrugName.text.clear()
@@ -152,7 +150,6 @@ class AddDrugsActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
-
         val doctor = Doctor(
             name = name,
             address = address,
@@ -161,7 +158,6 @@ class AddDrugsActivity : AppCompatActivity() {
             fees = fees,
             category = category
         )
-
         // Add doctor to Firestore
         val firestore = FirebaseFirestore.getInstance()
         firestore.collection("doctors")
@@ -175,7 +171,6 @@ class AddDrugsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to add doctor: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
     private fun clearFields() {
         etDoctorName.text.clear()
         etDoctorAddress.text.clear()

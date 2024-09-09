@@ -1,5 +1,6 @@
 package com.example.drugs
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,10 +12,18 @@ import com.bumptech.glide.Glide
 import com.example.healthsphere.R
 
 class MedicineDetailActivity : AppCompatActivity() {
+   private lateinit var  backbtn :ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.medicine_detail_activity)
+        backbtn = findViewById(R.id.backbtn)
+        backbtn.setOnClickListener{
+            val backInt = Intent(this, MedicineActivity::class.java)
+            backInt.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(backInt)
+            finish()
+        }
         // Get data from intent
         val medicineName = intent.getStringExtra("medicine_name")
         val medicineDescription = intent.getStringExtra("medicine_description")

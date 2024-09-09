@@ -102,6 +102,7 @@ class FirestoreClass {
     fun addDrug(
         drugName: String,
         price: String,
+        category: String,
         description: String,
         drugImg: String,
         onSuccess: () -> Unit,
@@ -110,6 +111,7 @@ class FirestoreClass {
         val drugItem = Medicine(
             drugName = drugName,
             price = price,
+            category =category,
             description = description,
             drugImg = drugImg
         )
