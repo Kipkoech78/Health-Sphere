@@ -53,15 +53,8 @@ class DrugCategoriesActivity : BazeActivity() {
         cardOverTheCounter.setOnClickListener {
             fetchMedicine("Over The counter")
         }
-
-
         cardMeasles.setOnClickListener {
             fetchMedicine("measles")
-        }
-        backbtn = findViewById(R.id.backbtn)
-        backbtn.setOnClickListener{
-            val backInt = Intent(this,MedicineActivity::class.java )
-            startActivity(backInt)
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -69,7 +62,6 @@ class DrugCategoriesActivity : BazeActivity() {
             insets
         }
     }
-
     private fun fetchMedicine(s: String) {
         showProgressDialog(resources.getString(R.string.loading))
         db.collection(Constants.DRUG)
@@ -95,6 +87,5 @@ class DrugCategoriesActivity : BazeActivity() {
                 e.printStackTrace()
                 hideProgressDialog()
             }
-
     }
 }

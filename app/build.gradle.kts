@@ -80,6 +80,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
 
     implementation (libs.picasso)
 

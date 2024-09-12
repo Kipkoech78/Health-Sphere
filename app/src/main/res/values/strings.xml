@@ -65,11 +65,18 @@
     </string-array>
     <string-array name="medicine_categories">
         <item>Select Category</item>
-        <item>Over The counter</item>
-        <item>Malaria</item>
-        <item>measles</item>
-        <item>Common Cold</item>
-        <item>Heart Problems</item>
+        <item>Pain Killers</item>
+        <item>Antibiotics</item>
+        <item>Anti Tbs</item>
+        <item>Antiemetics</item>
+        <item>Promethazine</item>
+        <item>Metoclopramide</item>
     </string-array>
-
+        <string-array name="chemist_names">
+            <item>dr Willard Clinic</item>
+            <item>Ravine Glory</item>
+            <item>summit clinic</item>
+            <item> Chergei Chemist</item>
+            <item>Kabarak University</item>
+        </string-array>
 </resources>

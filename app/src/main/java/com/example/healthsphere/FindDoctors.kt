@@ -39,6 +39,8 @@ class FindDoctors : BazeActivity() {
         cardSergion = findViewById(R.id.cardSergion)
         cardDentist = findViewById(R.id.cardDentist)
 
+
+
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, Context.MODE_PRIVATE)
         val userADMIN = sharedPreferences.getString(Constants.ADMIN, "")
         // Show the button only if the user is an admin
@@ -91,6 +93,7 @@ class FindDoctors : BazeActivity() {
             .whereEqualTo("category", category)
             .get()
             .addOnSuccessListener { result ->
+                hideProgressDialog()
                 val doctorDetails = result.map { document ->
                     val doctor = document.toObject(Doctor::class.java)
                     arrayOf(

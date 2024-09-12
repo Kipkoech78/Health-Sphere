@@ -29,11 +29,10 @@ class MedicineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.medicine_activity)
-
         recyclerView = findViewById(R.id.Medicinerecycler_view)
-
         backbtn = findViewById(R.id.backbtn)
         backbtn.setOnClickListener {
+//            onBackPressedDispatcher.onBackPressed()
             val backIntent = Intent(this, DrugCategoriesActivity::class.java)
             backIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(backIntent)
@@ -55,7 +54,6 @@ class MedicineActivity : AppCompatActivity() {
            )
            medicines.add(medicine)
         }
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         medicineAdapter = MedicineAdapter(medicines){ medicine ->
             val intent = Intent(this, MedicineDetailActivity::class.java).apply{

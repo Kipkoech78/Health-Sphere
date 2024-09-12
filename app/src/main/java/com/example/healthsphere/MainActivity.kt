@@ -77,18 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val intent = Intent(this,DoctorDashboardActivity::class.java)
                     startActivity(intent)
                 }
-//                R.id.Community -> {
-//                    val userRole = sharedPreferences.getString("role", "")
-//                    if (userRole.equals("Doctor", ignoreCase = true)) {
-//                        // Open doctor page
-//                        val intent = Intent(this, DoctorDashboardActivity::class.java)
-//                        startActivity(intent)
-//                    } else {
-//                        // Handle other roles or show error
-//                        Toast.makeText(this, "Access denied", Toast.LENGTH_SHORT).show()
-//                    }
-//                    Log.d("UserRole", "Role: $userRole")
-//                }
+//
             }
             true
         }

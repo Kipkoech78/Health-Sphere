@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:id="@+id/toolbar"
             android:background="@color/blue"
             android:elevation="4dp"
@@ -23,14 +23,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Welcome"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:fontFamily="@font/poppins_thick"
                 android:id="@+id/toolbar_title"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:layout_marginStart="16dp"
+                android:gravity="center|start"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="16dp" />
 
         </androidx.appcompat.widget.Toolbar>

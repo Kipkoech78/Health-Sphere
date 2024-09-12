@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.drugs.MedicineDetailActivity">
-
     <ImageView
         android:id="@+id/backbtn"
         android:layout_width="40dp"
@@ -18,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/medicine_detail_image"
         app:layout_constraintHorizontal_bias="0.08" />
-
     <ImageView
         android:id="@+id/medicine_detail_image"
         android:layout_width="match_parent"
@@ -64,7 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/medicine_detail_description"
                 android:layout_width="match_parent"
@@ -79,9 +76,11 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:id="@+id/tvSideEffects"
                 android:paddingTop="20dp"
                 android:paddingRight="10dp"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
     </ScrollView>

@@ -33,6 +33,7 @@ class AddDrugsActivity : AppCompatActivity() {
     private var selectedImageRes: Int = R.drawable.banner
     private lateinit var etDrugName: EditText
     private lateinit var etDescription: EditText
+    private lateinit var etSideEffects: EditText
     private lateinit var etPrice: EditText
     private lateinit var ImageUrl: EditText
     private lateinit var btnSubmit: Button
@@ -46,6 +47,7 @@ class AddDrugsActivity : AppCompatActivity() {
 
 
         etDrugName = findViewById(R.id.etDrugName)
+        etSideEffects = findViewById(R.id.etSideEffects)
         etDescription = findViewById(R.id.etDescription)
         ImageUrl = findViewById(R.id.ImageUrl)
         btnSubmit = findViewById(R.id.btnSubmit)
@@ -54,7 +56,7 @@ class AddDrugsActivity : AppCompatActivity() {
         val drugcategories = resources.getStringArray(R.array.medicine_categories)
         val adapter0 = ArrayAdapter(this, android.R.layout.simple_spinner_item, drugcategories)
         adapter0.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCategory.adapter = adapter0
+        spinnerDrugCategory.adapter = adapter0
         //add Feed
         feedHeading = findViewById(R.id.etFeedHeading)
         feedDesc = findViewById(R.id.etFeedDesc)
@@ -100,6 +102,7 @@ class AddDrugsActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             val drugName = etDrugName.text.toString()
             val price = etPrice.text.toString()
+            val sideEffect = etSideEffects.text.toString()
             val description = etDescription.text.toString()
             val drugImg = ImageUrl.text.toString()
             val category = spinnerDrugCategory.selectedItem.toString()
@@ -108,6 +111,7 @@ class AddDrugsActivity : AppCompatActivity() {
                     drugName = drugName,
                     price = price,
                     drugImg = drugImg,
+                    sideEffect = sideEffect,
                     description = description,
                     category = category,
                     onSuccess = {

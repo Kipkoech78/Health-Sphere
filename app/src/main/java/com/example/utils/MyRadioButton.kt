@@ -11,7 +11,6 @@ class MyRadioButton(context: Context, attributeSet: AttributeSet): AppCompatRadi
         //call function to apply font to components
         applyFont()
     }
-
     private fun applyFont() {
         val typeface: Typeface =
             Typeface.createFromAsset(context.assets, "sf_pro_display.OTF")

@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firestore.FirestoreClass
+import com.example.firestore.Firestorecart
+import com.example.models.CartItem
 import com.example.models.Order
 import com.example.utils.Constants
 
@@ -53,25 +55,25 @@ class LabTestBookActivty : BazeActivity() {
         val date = intent.getStringExtra("date") ?: ""
         val time = intent.getStringExtra("time") ?: ""
         val price = intent.getStringExtra("price") ?: ""
+        val pricestr = intent.getStringExtra("price")?.replace("Ksh ", "") ?: "0.0"
+        val product = intent.getStringExtra("packageName") ?: ""
 
         et_fees.text = price
         uploadName.setText(username)
         et_email.setText(userEmail)
-
-
+        //val price = pricestr.toFloatOrNull() ?: 0.0f
         bookingButton.setOnClickListener{
             showProgressDialog(resources.getString(R.string.please_wait))
 
             val order = Order(
-                username = username,
-                name = uploadName.text.toString(),
-                address = et_address.text.toString(),
                 email = userEmail,
+                address = et_address.text.toString(),
+                username = username,
+                product = product,
                 date = date,
                 time = time,
-                price = price
+                price = price,
             )
-
             // Save the order to Firestore
             FirestoreClass().placeOrder(order,
                 onSuccess = {
@@ -107,7 +109,6 @@ class LabTestBookActivty : BazeActivity() {
                 }
             )
         }
-
 backbtn.setOnClickListener{
     val backintent = Intent( this, LabTestDetailsActivity::class.java)
     startActivity(backintent)

@@ -67,7 +67,7 @@ class RegisterActivity : BazeActivity(), View.OnClickListener, View.OnFocusChang
         mbinding.etConfirmPass.onFocusChangeListener = this
 
         sign_up.setOnClickListener {
-            var signIntent: Intent = Intent(this, OTP_Activity::class.java)
+            var signIntent = Intent(this, OTP_Activity::class.java)
             startActivity(signIntent)
         }
         sign_up.setOnClickListener{

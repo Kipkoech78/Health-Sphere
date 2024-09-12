@@ -18,6 +18,9 @@
         android:theme="@style/Theme.HealthSphere"
         tools:targetApi="31">
         <activity
+            android:name="com.example.drugs.OrderMedicineActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.drugs.DrugCategoriesActivity"
             android:exported="false" />
         <activity

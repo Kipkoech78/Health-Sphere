@@ -170,15 +170,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/homeName"
-                            android:text="Order Details
-"
-                            android:textSize="20sp"
+                            android:text="Booking Details"
+                            android:textSize="15sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/poppins_medium"
                             android:layout_marginTop="10dp"
                             android:layout_centerHorizontal="true"
                             android:layout_below="@+id/homeImage"/>
-
                         <ImageView
                             android:layout_width="70dp"
                             android:layout_height="70dp"

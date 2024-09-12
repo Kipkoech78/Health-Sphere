@@ -5,5 +5,6 @@ data class Medicine (
     val price: String = "",
     val description: String = "",
     val drugImg : String ="",
-    val category: String = ""
+    val category: String = "",
+    val sideEffect: String = ""
 )

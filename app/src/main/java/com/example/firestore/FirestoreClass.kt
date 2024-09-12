@@ -86,7 +86,7 @@ class FirestoreClass {
     }
     // Method to check if a cart item already exists
     fun checkCartItemExists(username: String, product: String, onSuccess: (Boolean) -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .whereEqualTo("username", username)
             .whereEqualTo("product", product)
             .get()
@@ -104,6 +104,7 @@ class FirestoreClass {
         price: String,
         category: String,
         description: String,
+        sideEffect: String,
         drugImg: String,
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
@@ -112,6 +113,7 @@ class FirestoreClass {
             drugName = drugName,
             price = price,
             category =category,
+            sideEffect = sideEffect,
             description = description,
             drugImg = drugImg
         )
@@ -144,6 +146,22 @@ class FirestoreClass {
             }
     }
 
+    fun updateAppointmentStatus(appointmentId: String, newStatus: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        val appointmentRef = db.collection("appointments").document(appointmentId)
+        appointmentRef.update("status", newStatus)
+            .addOnSuccessListener {
+                onSuccess()
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+    fun deleteAppointment(appointmentId: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        db.collection("appointments").document(appointmentId)
+            .delete()
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { onFailure(it) }
+    }
     fun getAppointmentsForDoctor(doctorName: String, onSuccess: (List<Appointment>) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection("appointments")
             .whereEqualTo("doctorName", doctorName)
@@ -156,22 +174,8 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
-
-    fun addDrugmine(drugItem: Medicine, onSuccess: () -> Unit, onFailure: (Exception) -> Unit){
-        mFirestore.collection(Constants.DRUG)
-            .add(drugItem) .addOnSuccessListener {
-                onSuccess()
-            }
-            .addOnFailureListener{e ->
-                Log.i("FirestoreClass", "Error adding drugs to db", e)
-                onFailure(e)
-            }
-
-    }
-
-    // Existing method to add a cart item
     fun addCartItem(cartItem: CartItem, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .add(cartItem)
             .addOnSuccessListener {
                 onSuccess()
@@ -182,7 +186,7 @@ class FirestoreClass {
             }
     }
     fun getCartItemsByUser(username: String, onSuccess: (List<CartItem>) -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .whereEqualTo("username", username)
             .get()
             .addOnSuccessListener { result ->
@@ -198,7 +202,7 @@ class FirestoreClass {
     }
     // FirestoreClass.kt
     fun clearCartItems(username: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .whereEqualTo("username", username)
             .get()
             .addOnSuccessListener { result ->
@@ -220,9 +224,8 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
-
     fun removeCartItem(username: String, product: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .whereEqualTo("username", username)
             .whereEqualTo("product", product)
             .get()
@@ -230,7 +233,7 @@ class FirestoreClass {
                 if (!result.isEmpty) {
                     // Assuming only one document is returned
                     val documentId = result.documents[0].id
-                    mFirestore.collection(Constants.CART)
+                    mFirestore.collection( "cart")
                         .document(documentId)
                         .delete()
                         .addOnSuccessListener {
@@ -276,8 +279,6 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
-
-
     fun getUserOrders(username: String, onSuccess: (List<Order>) -> Unit, onFailure: (Exception) -> Unit) {
         mFirestore.collection("orders")
             .whereEqualTo("username", username)
@@ -294,7 +295,7 @@ class FirestoreClass {
             }
     }
     fun getCartItemsByUserId(userId: String, onSuccess: (List<CartItem>) -> Unit, onFailure: (Exception) -> Unit) {
-        mFirestore.collection(Constants.CART)
+        mFirestore.collection( "cart")
             .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { result ->
@@ -308,4 +309,5 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
+
 }

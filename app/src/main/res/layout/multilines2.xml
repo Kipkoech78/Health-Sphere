@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/whatsapp_grey"
     android:orientation="vertical"
     android:padding="8dp"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/line1"
@@ -46,7 +47,7 @@
         <TextView
             android:id="@+id/line3"
             android:layout_width="0dp"
-            android:layout_weight="0.30"
+            android:layout_weight="0.20"
             android:layout_height="wrap_content"
             android:text="No"
             android:textColor="@color/black"
@@ -56,7 +57,7 @@
         <TextView
             android:id="@+id/line4"
             android:layout_width="0dp"
-            android:layout_weight="0.50"
+            android:layout_weight="0.40"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -71,9 +72,22 @@
             android:textColor="@color/textcolyellow"
             android:textSize="16sp"
             android:textStyle="italic"/>
+
     </LinearLayout>
-
-
-
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="end|bottom"
+            android:text="Cancel"
+            android:backgroundTint="@color/g_light_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

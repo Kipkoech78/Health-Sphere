@@ -25,7 +25,6 @@ class OrderDetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_det)
         lvOrderDetails = findViewById(R.id.lvOrderDetails)
-
         // Fetch order details and appointments from Firestore
         loadOrderDetailsAndAppointments()
         backbtn = findViewById(R.id.backbtn)
@@ -39,13 +38,11 @@ class OrderDetActivity : AppCompatActivity() {
             insets
         }
     }
-
     private fun loadOrderDetailsAndAppointments() {
         tvTittle = findViewById(R.id.tvTittle)
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "") ?: ""
         tvTittle.text = "Thank You ${username}. Orders and Appointments received"
-
         // Fetch orders
         FirestoreClass().getOrdersForUser(username, onSuccess = { orders ->
             // Fetch appointments after fetching orders
@@ -55,7 +52,6 @@ class OrderDetActivity : AppCompatActivity() {
                     addAll(orders)
                     addAll(bookings)
                 }
-
                 setupListView(combinedList)
             }, onFailure = { e ->
                 Toast.makeText(this, "Error loading appointments: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -64,73 +60,10 @@ class OrderDetActivity : AppCompatActivity() {
             Toast.makeText(this, "Error loading orders: ${e.message}", Toast.LENGTH_SHORT).show()
         })
     }
-
     private fun setupListView(items: List<Any>) {
-        val adapter = CombinedAdapter(this, items)
+       //val adapter = CombinedAdapter(this, items)
+        val mutableItems = items.toMutableList()
+        val adapter = CombinedAdapter(this, mutableItems)
         lvOrderDetails.adapter = adapter
     }
 }
-
-
-
-//package com.example.healthsphere
-//
-//import android.content.Intent
-//import android.os.Bundle
-//import android.widget.LinearLayout
-//import android.widget.ListView
-//import android.widget.TextView
-//import android.widget.Toast
-//import androidx.appcompat.app.AppCompatActivity
-//import androidx.core.view.ViewCompat
-//import androidx.core.view.WindowInsetsCompat
-//import com.example.Adapters.OrderAdapter
-//import com.example.firestore.FirestoreClass
-//import com.example.models.Order
-//import com.example.utils.Constants
-//
-//class OrderDetActivity : AppCompatActivity() {
-//    private lateinit var backbtn : LinearLayout
-//    private lateinit var tvTittle: TextView
-//    private lateinit var lvOrderDetails: ListView
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_order_det)
-//        lvOrderDetails = findViewById(R.id.lvOrderDetails)
-//
-//        // Fetch order details from Firestore
-//        loadOrderDetails()
-//        backbtn = findViewById(R.id.backbtn)
-//        backbtn.setOnClickListener {
-//        val backIntent = Intent(this, MainActivity::class.java)
-//            startActivity(backIntent)
-//        }
-//            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-//    }
-//
-//    private fun loadOrderDetails() {
-//        tvTittle = findViewById(R.id.tvTittle)
-//        val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, MODE_PRIVATE)
-//        val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "") ?: ""
-//        tvTittle.setText(" Thank You ${username} Order received" )
-//        FirestoreClass().getOrdersForUser(username, onSuccess = { orders ->
-//            if (orders.isNotEmpty()) {
-//                setupListView(orders)
-//            } else {
-//                Toast.makeText(this, "No orders found", Toast.LENGTH_SHORT).show()
-//            }
-//        }, onFailure = { e ->
-//            Toast.makeText(this, "Error loading orders: ${e.message}", Toast.LENGTH_SHORT).show()
-//        })
-//    }
-//
-//    private fun setupListView(orders: List<Order>) {
-//        val adapter = OrderAdapter(this, orders)
-//        lvOrderDetails.adapter = adapter
-//    }
-//}

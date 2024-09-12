@@ -52,8 +52,6 @@ class LabTestActivity : AppCompatActivity() {
             item["line5"] = "Cons Fees: ${labTestPackages[i][1]}/-" // Cost
             list.add(item)
         }
-
-
         val adapter = SimpleAdapter(
             this,
             list,
@@ -61,21 +59,13 @@ class LabTestActivity : AppCompatActivity() {
             arrayOf("line1", "line5"),
             intArrayOf(R.id.line1, R.id.line5)
         )
-
         val listView: ListView = findViewById(R.id.listviewdocdetails)
         listView.adapter = adapter
-
-
-
-
-
         listView.setOnItemClickListener { _, _, position, _ ->
             // Get the clicked item's data
             val selectedItem = list[position]
             val doctorName = selectedItem["line1"] ?: "Unknown"
             val fees = selectedItem["line5"] ?: ""
-
-
             // Create an Intent to start BookActivity
             val intent = Intent(this, LabTestDetailsActivity::class.java)
             // Pass data to the new activity
@@ -84,13 +74,8 @@ class LabTestActivity : AppCompatActivity() {
             intent.putExtra("x5", labTestPackages[position][1]) // Cost
             startActivity(intent)
         }
-
-
         cart_tv.setOnClickListener{
             val cartIntent = Intent(this, CatLabActivity::class.java)
-
-
-
             startActivity(cartIntent)
         }
 

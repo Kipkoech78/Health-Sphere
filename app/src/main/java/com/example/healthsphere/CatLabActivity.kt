@@ -64,23 +64,21 @@ class CatLabActivity : AppCompatActivity() {
             startActivity(backintent)
         }
         cartCheckout.setOnClickListener{
-            val priceWithCurrency = "Ksh ${totalCost.text.toString()}"  // Add "Ksh " prefix to the price
-
+            val priceText = totalCost.text.toString().trim()  // Remove "Ksh" and "Total:" from the text
+            val priceWithCurrency = "${priceText}"  // Add "Ksh " prefix to the price
             val bookIntent = Intent(this, LabTestBookActivty::class.java)
+            bookIntent.putExtra("packageName", lvtestDetails.text.toString())
             bookIntent.putExtra("price", priceWithCurrency)  // Pass the price with currency
             bookIntent.putExtra("date", dateEditText.text.toString())  // Pass the selected date
             bookIntent.putExtra("time", time_et.text.toString())  // Pass the selected time
             startActivity(bookIntent)
-
         }
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
     }
-
     private fun loadCartItems(username: String) {
         firestoreClass.getCartItemsByUser(username,
             onSuccess = { cartItems ->
@@ -91,23 +89,19 @@ class CatLabActivity : AppCompatActivity() {
             }
         )
     }
-
     private fun displayCartItems(cartItems: List<CartItem>) {
         var totalCostValue = 0f
-
         // Loop through cart items and display them
         cartItems.forEach { cartItem ->
             // Display cart item details (you can customize how to display each item)
-            lvtestDetails.append("${cartItem.product}: \$${cartItem.price}\n")
+            lvtestDetails.append("${cartItem.product}: ${cartItem.price}\n ")
 
             // Calculate total cost
             totalCostValue += cartItem.price
         }
-
         // Display total cost
         totalCost.text = String.format(Locale.getDefault(), "Total: \$%.2f", totalCostValue)
     }
-
     private fun setupTimePicker() {
         time_et.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -125,7 +119,6 @@ class CatLabActivity : AppCompatActivity() {
             timePickerDialog.show()
         }
     }
-
     private fun setupDatePicker() {
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)

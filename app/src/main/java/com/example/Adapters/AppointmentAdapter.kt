@@ -45,11 +45,11 @@ class AppointmentAdapter(private val context: Context, private val appointments:
             }
             "Complete" -> {
                 tvStatus.text = "Completed"
-                tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+                tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
             }
             else -> {
-                tvStatus.text = "Unknown"
-                tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+                tvStatus.text = "Cancelled"
+                tvStatus.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_red_dark))
             }
         }
 

@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
@@ -50,7 +51,6 @@ class BookActivity : BazeActivity() {
             val calendar = Calendar.getInstance()
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
-
             // Create a TimePickerDialog
             val timePickerDialog = TimePickerDialog(
                 this,
@@ -66,7 +66,6 @@ class BookActivity : BazeActivity() {
             timePickerDialog.show()
         }
         dateButton = findViewById(R.id.dateEditText)
-
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
@@ -115,8 +114,9 @@ class BookActivity : BazeActivity() {
 //        ed3.setText(exp)
         ed4.setText(fees)
         backbtn.setOnClickListener{
-            val backintent = Intent(this, FindDoctors::class.java)
-            startActivity(backintent)
+            onBackPressedDispatcher.onBackPressed()
+//            val backintent = Intent(this, FindDoctors::class.java)
+//            startActivity(backintent)
         }
 
 
@@ -129,7 +129,12 @@ class BookActivity : BazeActivity() {
             val fees = ed4.text.toString()
             val date = dateButton.text.toString()
             val time = timeButton.text.toString()
-
+            val selectedDateTime = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).parse("$date $time")
+            val currentDateTime = Calendar.getInstance().time
+            if(selectedDateTime.before(currentDateTime)){
+                Toast.makeText(this, "Selected time is in the past. Please choose a valid time.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             // Get username from shared preferences
             val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, MODE_PRIVATE)
             val useremail = sharedPreferences.getString(Constants.LOGGED_IN_USEREMAIL, "") ?: ""
@@ -142,12 +147,14 @@ class BookActivity : BazeActivity() {
             appointmentQuery.get()
                 .addOnSuccessListener { querySnapshot ->
                     if (querySnapshot.isEmpty) {
+                        val active = selectedDateTime.after(currentDateTime)
                         // No existing appointments, proceed with adding the new one
                         val appointment = hashMapOf(
                             "name" to name,
                             "email" to email,
                             "address" to address,
 //                            "exp" to exp,
+                            "active" to active,
                             "fees" to fees,
                             "date" to date,
                             "time" to time,
@@ -155,7 +162,6 @@ class BookActivity : BazeActivity() {
                             "userEmail" to useremail,
                             "completed" to false
                         )
-
                         db.collection("appointments")
                             .add(appointment)
                             .addOnSuccessListener {
