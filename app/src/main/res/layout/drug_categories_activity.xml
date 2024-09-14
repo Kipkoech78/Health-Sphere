@@ -33,16 +33,16 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.61"
         app:layout_constraintStart_toEndOf="@+id/backbtn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.391" />
+        app:layout_constraintVertical_bias="0.302" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
 
         android:background="@color/white"
 
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/categories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.817">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -85,9 +85,9 @@
     <LinearLayout
         android:id="@+id/categories"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_scroll_view"
         app:layout_constraintStart_toStartOf="parent">
@@ -113,14 +113,14 @@
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87">
+        app:layout_constraintVertical_bias="0.794">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                 android:id="@+id/cardMalaria"
                 android:layout_width="180dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 app:cardBackgroundColor="@color/blue_1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -195,7 +195,7 @@
                 android:id="@+id/cardCommonCold"
                 android:layout_width="180dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 app:cardBackgroundColor="@color/blue_1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -226,7 +226,7 @@
                 android:id="@+id/cardheartProblems"
                 android:layout_width="180dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 app:cardBackgroundColor="@color/blue_1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -257,7 +257,7 @@
                 android:id="@+id/cardMeasles"
                 android:layout_width="180dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 app:cardBackgroundColor="@color/blue_1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -288,5 +288,31 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"-->
+<!--        app:layout_constraintVertical_bias="0.728">-->
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/shopping_cart_24"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Medicine Cart"-->
+<!--            android:textSize="15dp"-->
+<!--            android:textColor="@color/white"/>-->
+
+
+
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

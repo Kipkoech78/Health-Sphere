@@ -100,7 +100,7 @@ class CatLabActivity : AppCompatActivity() {
             totalCostValue += cartItem.price
         }
         // Display total cost
-        totalCost.text = String.format(Locale.getDefault(), "Total: \$%.2f", totalCostValue)
+        totalCost.text = String.format(Locale.getDefault(), "%.2f", totalCostValue)
     }
     private fun setupTimePicker() {
         time_et.setOnClickListener {

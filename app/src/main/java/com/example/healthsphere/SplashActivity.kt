@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -18,8 +19,8 @@ class SplashActivity : AppCompatActivity() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         setContentView(R.layout.activity_splash)
-
-
+        // Force light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val mainHandler = Handler(Looper.getMainLooper())
         mainHandler.postDelayed({
             if (firebaseUser != null){

@@ -1,6 +1,7 @@
 package com.example.models
 data class Appointment(
     var id: String = "",
+    val userId: String = "",
     val address: String = "",
     val completed: Boolean = false,
     val date: String = "",

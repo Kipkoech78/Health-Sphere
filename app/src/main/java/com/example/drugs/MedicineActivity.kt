@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,8 @@ class MedicineActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.medicine_activity)
         recyclerView = findViewById(R.id.Medicinerecycler_view)
+        // Force light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         backbtn = findViewById(R.id.backbtn)
         backbtn.setOnClickListener {
 //            onBackPressedDispatcher.onBackPressed()

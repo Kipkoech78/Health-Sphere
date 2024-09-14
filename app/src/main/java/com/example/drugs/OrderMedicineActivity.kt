@@ -52,6 +52,7 @@ class OrderMedicineActivity : AppCompatActivity() {
         et_fees = findViewById(R.id.et_fees)
         selectChemist = findViewById(R.id.selectChemist)
         timeButton = findViewById(R.id.time_et)
+        dateButton = findViewById(R.id.dateEditText)
         val chemistNames = resources.getStringArray(R.array.chemist_names)
         selectChemist.setOnClickListener {
             val dialog = AlertDialog.Builder(this)
@@ -93,6 +94,7 @@ class OrderMedicineActivity : AppCompatActivity() {
         dateButton.isFocusable = false
         dateButton.isFocusableInTouchMode = false
         timeButton.isVisible = true
+
 
         timeButton.setOnClickListener {
             // Get the current time

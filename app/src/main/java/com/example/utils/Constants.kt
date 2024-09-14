@@ -4,7 +4,7 @@ object Constants {
     const val DRUG = "drug"
     const val CART = "cart"
     const val USERS: String = "users"
-   // const val ROLE: String = "admin"
+    const val LOGGED_IN_USER_ID: String = "logged_in_uid"
     const val ADMIN: String = "admin"
     const val HEALTHAPP_PREFERENCES: String = "myHeathPalPrefs"
     const val LOGGED_IN_USERNAME : String = "logged_in_username"

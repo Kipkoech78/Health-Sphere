@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.HealthSphere" parent="Theme.Material3.DayNight.NoActionBar">
-         Customize your light theme here.
+    <style name="Base.Theme.HealthSphere" parent="Theme.MaterialComponents.Light.NoActionBar">
          <item name="colorPrimary">@color/blue_10</item>
         <item name="android:statusBarColor">@color/blue_10</item>
+        <item name="colorPrimaryVariant">@color/whatsapp_grey</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:forceDarkAllowed">false</item>
     </style>
     <style name="RoundCorner" parent="">
         <item name="cornerFamily">rounded</item>

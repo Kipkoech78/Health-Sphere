@@ -72,11 +72,11 @@
         <item>Promethazine</item>
         <item>Metoclopramide</item>
     </string-array>
-        <string-array name="chemist_names">
-            <item>dr Willard Clinic</item>
-            <item>Ravine Glory</item>
-            <item>summit clinic</item>
-            <item> Chergei Chemist</item>
-            <item>Kabarak University</item>
-        </string-array>
+    <string-array name="chemist_names">
+        <item>dr Willard Clinic</item>
+        <item>Ravine Glory</item>
+        <item>summit clinic</item>
+        <item> Chergei Chemist</item>
+        <item>Kabarak University</item>
+    </string-array>
 </resources>

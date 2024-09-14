@@ -10,12 +10,14 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.accounts.UserAccountActivity
 import com.example.drugs.AddDrugsActivity
 import com.example.fragments.CommunityFragment
 import com.example.fragments.ContactFragment
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //set full screen
 
         setContentView(binding.root)
+        // Force light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
@@ -102,7 +106,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 logout_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(logout_intent)
             }
-            R.id.nav_health -> Toast.makeText(this,"Your Health Priority",Toast.LENGTH_SHORT).show()
+            R.id.nav_health -> {
+
+                val accIntent = Intent(this, UserAccountActivity::class.java)
+                startActivity(accIntent)
+            }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -114,7 +122,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         else{
             super.onBackPressed()
         }
-
     }
     private fun openFragment(fragment: Fragment){
         val fragmentTransaction: FragmentTransaction = fragmentmanager.beginTransaction()

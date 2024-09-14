@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.utils.Constants
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,6 +32,8 @@ class BookActivity : BazeActivity() {
     private lateinit var ed4 : EditText
     private lateinit var timeButton: Button
     private lateinit var dateButton: Button
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -44,6 +47,8 @@ class BookActivity : BazeActivity() {
         ed2 = findViewById(R.id.et_address)
         ed3 = findViewById(R.id.et_email)
         ed4 = findViewById(R.id.et_fees)
+        //initiate auth
+        auth = FirebaseAuth.getInstance()
         appointmentButton = findViewById(R.id.appointmentButton)
         timeButton = findViewById(R.id.time_et)
         timeButton.setOnClickListener {
@@ -121,6 +126,7 @@ class BookActivity : BazeActivity() {
 
 
         appointmentButton.setOnClickListener {
+            val userId = auth.currentUser ?.uid
             // Collect appointment details
             val name = tv.text.toString()
             val email = ed1.text.toString()
@@ -153,6 +159,7 @@ class BookActivity : BazeActivity() {
                             "name" to name,
                             "email" to email,
                             "address" to address,
+                            "userId" to userId,
 //                            "exp" to exp,
                             "active" to active,
                             "fees" to fees,

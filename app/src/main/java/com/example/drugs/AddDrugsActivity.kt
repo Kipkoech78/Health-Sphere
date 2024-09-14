@@ -9,14 +9,16 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firestore.FirestoreClass
+import com.example.healthsphere.BazeActivity
 import com.example.healthsphere.R
 import com.example.models.Doctor
 import com.example.sqlite.FeedDatabaseHelper
 import com.google.firebase.firestore.FirebaseFirestore
-class AddDrugsActivity : AppCompatActivity() {
+class AddDrugsActivity : BazeActivity() {
     private lateinit var etDoctorName: EditText
     private lateinit var etDoctorAddress: EditText
     private lateinit var etDoctorExperience: EditText
@@ -42,6 +44,8 @@ class AddDrugsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_add_drugs)
+        // Force light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         // Initialize FirestoreClass here
         firestoreClass = FirestoreClass()
 
@@ -64,6 +68,8 @@ class AddDrugsActivity : AppCompatActivity() {
         addImage = findViewById(R.id.addImage)
 
         btnSaveFeed.setOnClickListener {
+            btnSaveFeed.isFocusable = false
+            btnSaveFeed.isFocusableInTouchMode = false
             val heading = feedHeading.text.toString()
             val desc = feedDesc.text.toString()
             val imageUrl = addImage.text.toString()
@@ -82,7 +88,6 @@ class AddDrugsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill in all details", Toast.LENGTH_SHORT).show()
             }
         }
-
 //add Doc
         spinnerCategory = findViewById(R.id.spinnerCategory)
         etDoctorName = findViewById(R.id.etDoctorName)
@@ -100,6 +105,7 @@ class AddDrugsActivity : AppCompatActivity() {
             addDoctorToFirestore()
         }
         btnSubmit.setOnClickListener {
+            showProgressDialog(resources.getString(R.string.please_wait))
             val drugName = etDrugName.text.toString()
             val price = etPrice.text.toString()
             val sideEffect = etSideEffects.text.toString()
@@ -115,6 +121,7 @@ class AddDrugsActivity : AppCompatActivity() {
                     description = description,
                     category = category,
                     onSuccess = {
+                        hideProgressDialog()
                         // Handle success (e.g., show a message or navigate to another activity)
                         Toast.makeText(this, "success drug added", Toast.LENGTH_SHORT).show()
                         etDrugName.text.clear()
@@ -122,6 +129,7 @@ class AddDrugsActivity : AppCompatActivity() {
                         etDescription.text.clear()
                     },
                     onFailure = { e ->
+                        hideProgressDialog()
                         // Handle failure (e.g., show an error message)
                         Toast.makeText(this, "Failed to add drug: ${e.message}", Toast.LENGTH_SHORT).show()
                     })
@@ -139,7 +147,6 @@ class AddDrugsActivity : AppCompatActivity() {
         }
     }
     private fun addDoctorToFirestore() {
-
         // Get values from input fields
         val name = etDoctorName.text.toString().trim()
         val address = etDoctorAddress.text.toString().trim()

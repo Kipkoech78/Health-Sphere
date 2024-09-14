@@ -3,6 +3,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.widget.Toast
 import com.example.healthsphere.RegisterActivity
 import com.example.healthsphere.SignIn
 import com.example.models.Appointment
@@ -11,6 +12,7 @@ import com.example.models.Doctor
 import com.example.models.DoctorBooking
 import com.example.models.Medicine
 import com.example.models.Order
+import com.example.models.OrderSummary
 import com.example.models.User
 import com.example.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -55,8 +57,6 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
                 //here we have received the document snapshot which is converted into user Data model object
                 val user = document.toObject(User::class.java)!!
-
-
                 val sharedPreferences = activity.getSharedPreferences(
                     Constants.HEALTHAPP_PREFERENCES,
                     Context.MODE_PRIVATE
@@ -66,6 +66,7 @@ class FirestoreClass {
                 //value: Username
                 editor.putString(Constants.LOGGED_IN_USERNAME, "${user.userName}",)
                 editor.putString(Constants.LOGGED_IN_USEREMAIL, "${user.email}")
+                editor.putString(Constants.LOGGED_IN_USER_ID, "${user.id}")
                 editor.putString(Constants.ADMIN, "${user.role}")
                 editor.apply()
 
@@ -309,5 +310,120 @@ class FirestoreClass {
                 onFailure(e)
             }
     }
+    fun fetchAllUserOrders(userId: String, onSuccess: (List<OrderSummary>) -> Unit, onFailure: (Exception) -> Unit) {
+        val allOrders = mutableListOf<OrderSummary>()
+        // Fetch appointments
+        db.collection("appointments")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val orderSummary = OrderSummary(
+                        type = "Appointment",
+                        description = "Appointment with doctor",
+                        price = document.getDouble("price") ?: 0.0,
+                        status = document.getString("status") ?: "Unknown"
+                    )
+                    allOrders.add(orderSummary)
+                }
+
+                // Fetch medicines orders
+                db.collection("medicines_orders")
+                    .whereEqualTo("userId", userId)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            val orderSummary = OrderSummary(
+                                type = "Medicine Order",
+                                description = "Medicine: ${document.getString("medicineName")}",
+                                price = document.getDouble("price") ?: 0.0,
+                                status = document.getString("status") ?: "Unknown"
+                            )
+                            allOrders.add(orderSummary)
+                        }
+
+                        // Fetch lab test orders
+                        db.collection("orders")
+                            .whereEqualTo("userId", userId)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    val orderSummary = OrderSummary(
+                                        type = "Lab Test Order",
+                                        description = "Test: ${document.getString("testName")}",
+                                        price = document.getDouble("price") ?: 0.0,
+                                        status = document.getString("status") ?: "Unknown"
+                                    )
+                                    allOrders.add(orderSummary)
+                                }
+
+                                // Pass the list of all orders to the success callback
+                                onSuccess(allOrders)
+                            }
+                            .addOnFailureListener { exception ->
+                                onFailure(exception)
+                            }
+                    }
+                    .addOnFailureListener { exception ->
+                        onFailure(exception)
+                    }
+            }
+            .addOnFailureListener { exception ->
+                onFailure(exception)
+            }
+    }
+    fun deductFromUserBalance(userId: String, deductionAmount: Double, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(userId)
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                val currentBalance = document.getDouble("balance") ?: 0.0
+                val newBalance = currentBalance - deductionAmount
+
+                // Update the balance
+                userRef.update("balance", newBalance)
+                    .addOnSuccessListener {
+                        onSuccess()
+                    }
+                    .addOnFailureListener { exception ->
+                        onFailure(exception)
+                    }
+            }
+        }
+    }
+    fun depositToUserAccount(userId: String, amount: Float, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+        val userRef = db.collection("users").document(userId)
+        db.runTransaction { transaction ->
+            val userSnapshot = transaction.get(userRef)
+            val currentBalance = userSnapshot.getDouble("balance")?.toFloat() ?: 0f
+            val newBalance = currentBalance + amount
+            transaction.update(userRef, "balance", newBalance)
+        }.addOnSuccessListener {
+            onSuccess()
+        }.addOnFailureListener { e ->
+            onFailure(e)
+        }
+    }
+    fun getUserDetailsAcc(userId: String, onSuccess: (User) -> Unit, onFailure: (Exception) -> Unit) {
+        val userRef = db.collection("users").document(userId)
+        userRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val user = document.toObject(User::class.java)
+                    if (user != null) {
+                        onSuccess(user)
+                    } else {
+                        onFailure(Exception("User not found"))
+                    }
+                } else {
+                    onFailure(Exception("User not found"))
+                }
+            }
+            .addOnFailureListener { e ->
+                onFailure(e)
+            }
+    }
+
 
 }

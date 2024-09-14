@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firestore.FirestoreClass
@@ -43,6 +44,8 @@ class RegisterActivity : BazeActivity(), View.OnClickListener, View.OnFocusChang
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_register)
+        // Force light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         mbinding = ActivityRegisterBinding.inflate(LayoutInflater.from(this))
         setContentView(mbinding.root)
         // Find views using mbinding

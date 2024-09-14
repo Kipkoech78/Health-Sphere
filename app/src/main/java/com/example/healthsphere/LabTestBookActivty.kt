@@ -18,6 +18,8 @@ import com.example.firestore.Firestorecart
 import com.example.models.CartItem
 import com.example.models.Order
 import com.example.utils.Constants
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LabTestBookActivty : BazeActivity() {
     private lateinit var uploadName:EditText
@@ -26,6 +28,8 @@ class LabTestBookActivty : BazeActivity() {
     private lateinit var et_fees: TextView
     private lateinit var bookingButton: Button
     private lateinit var backbtn: LinearLayout
+   // private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,6 +40,8 @@ class LabTestBookActivty : BazeActivity() {
         et_fees = findViewById(R.id.et_fees)
         bookingButton = findViewById(R.id.bookingButton)
         backbtn = findViewById(R.id.backbtn)
+
+        auth = FirebaseAuth.getInstance()
 
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")!!
@@ -61,11 +67,13 @@ class LabTestBookActivty : BazeActivity() {
         et_fees.text = price
         uploadName.setText(username)
         et_email.setText(userEmail)
+
         //val price = pricestr.toFloatOrNull() ?: 0.0f
         bookingButton.setOnClickListener{
             showProgressDialog(resources.getString(R.string.please_wait))
-
+            val userId = auth.currentUser?.uid
             val order = Order(
+                userId = userId.toString(),
                 email = userEmail,
                 address = et_address.text.toString(),
                 username = username,
@@ -80,8 +88,9 @@ class LabTestBookActivty : BazeActivity() {
                     // Order placed successfully
                     hideProgressDialog()
                     val homeIntent = Intent(this, MainActivity::class.java)
-                    Toast.makeText(this, "Booking is done successfully", Toast.LENGTH_SHORT).show()
-
+                    bookingButton.setText("Submited")
+                    bookingButton.isFocusable = false
+                    bookingButton.isFocusableInTouchMode = false
                     // Clear cart items
                     FirestoreClass().clearCartItems(username,
                         onSuccess = {

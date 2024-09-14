@@ -18,6 +18,15 @@
         android:theme="@style/Theme.HealthSphere"
         tools:targetApi="31">
         <activity
+            android:name="com.example.drugs.MedicineHomeMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MedicineCartItemsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.accounts.UserAccountActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.drugs.OrderMedicineActivity"
             android:exported="false" />
         <activity
