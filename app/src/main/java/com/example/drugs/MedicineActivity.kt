@@ -35,11 +35,8 @@ class MedicineActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         backbtn = findViewById(R.id.backbtn)
         backbtn.setOnClickListener {
-//            onBackPressedDispatcher.onBackPressed()
-            val backIntent = Intent(this, DrugCategoriesActivity::class.java)
-            backIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(backIntent)
-            finish()
+            onBackPressedDispatcher.onBackPressed()
+
         }
         val sharedPreferences = getSharedPreferences(Constants.HEALTHAPP_PREFERENCES, Context.MODE_PRIVATE)
         val userADMIN = sharedPreferences.getString(Constants.ADMIN, "")

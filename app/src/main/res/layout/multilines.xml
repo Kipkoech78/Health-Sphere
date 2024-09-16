@@ -128,8 +128,9 @@
         <Button
             android:id="@+id/book_button"
             android:layout_width="0dp"
+            android:textSize="10sp"
             android:layout_weight="0.45"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/blue_1"
             android:text="Book Appointment"
             android:layout_gravity="end"/>

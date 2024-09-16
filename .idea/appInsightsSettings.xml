@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.healthsphere" />
-                  <option name="mobileSdkAppId" value="1:783944376406:android:052050527196bba2fe1bf7" />
-                  <option name="projectId" value="health-sphere-b7e27" />
-                  <option name="projectNumber" value="783944376406" />
+                  <option name="mobileSdkAppId" value="1:827707165368:android:65373af508cad7fded824d" />
+                  <option name="projectId" value="health-sphere-1d2f0" />
+                  <option name="projectNumber" value="827707165368" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

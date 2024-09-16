@@ -14,7 +14,7 @@
         android:id="@+id/workouts"
         android:icon="@drawable/stethoscope_solid"/>
     <item
-        android:title="Community"
+        android:title="Appointments"
         android:id="@+id/Community"
         android:icon="@drawable/heart_pulse_solid"
         />

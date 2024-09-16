@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.drugs.DrugCategoriesActivity
 import com.example.healthsphere.FindDoctors
 import com.example.healthsphere.LabTestActivity
 import com.example.drugs.MedicineActivity

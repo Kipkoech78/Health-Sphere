@@ -255,7 +255,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/pharmName"
-                            android:text="Pharmacy"
+                            android:text="Vaccination"
                             android:textSize="20sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/poppins_medium"
@@ -266,7 +266,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:id="@+id/pharmImage"
-                            android:src="@drawable/doctor_stethoscope"
+                            android:src="@drawable/hospital_solid"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>
@@ -290,7 +290,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/grocName"
-                            android:text="medicine"
+                            android:text="Pharmacy"
                             android:textSize="20sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/poppins_medium"
@@ -301,7 +301,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:id="@+id/grocImage"
-                            android:src="@drawable/hospital_solid"
+                            android:src="@drawable/doctor_stethoscope"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>

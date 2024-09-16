@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MedicineDetailActivity : BazeActivity() {
-
-
     private lateinit var backbtn: ImageView
     private lateinit var order: Button
     private lateinit var AddToCart: TextView
@@ -40,7 +38,6 @@ class MedicineDetailActivity : BazeActivity() {
         backbtn.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-
         // Get data from intent
         val medicineName = intent.getStringExtra("medicine_name")
         val medicineDescription = intent.getStringExtra("medicine_description")

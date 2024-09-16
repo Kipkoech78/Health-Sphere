@@ -29,9 +29,9 @@
         <activity
             android:name="com.example.drugs.OrderMedicineActivity"
             android:exported="false" />
-        <activity
-            android:name="com.example.drugs.DrugCategoriesActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name="com.example.drugs.DrugCategoriesActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name="com.example.drugs.MedicineDetailActivity"
             android:exported="false" />

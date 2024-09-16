@@ -13,15 +13,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.example.drugs.MedicineCartFragment
 import com.example.healthsphere.R
-import com.example.sqlite.CartDatabaseHelper
-import com.example.sqlite.CartItem
+import com.example.models.MedicineCartItem
+import com.google.firebase.firestore.FirebaseFirestore
 
 class CartItemAdapter(
     private val context: Context,
-    private val cartItems: List<CartItem>
-) : ArrayAdapter<CartItem>(context, 0, cartItems) {
+    private val cartItems: List<MedicineCartItem>
+) : ArrayAdapter<MedicineCartItem>(context, 0, cartItems) {
 
-    private val dbHelper = CartDatabaseHelper(context)
+    private val db = FirebaseFirestore.getInstance()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val item = getItem(position) ?: return convertView ?: View(context)
@@ -49,23 +49,33 @@ class CartItemAdapter(
         return view
     }
 
-    private fun handleBuy(item: CartItem) {
+    private fun handleBuy(item: MedicineCartItem) {
         Toast.makeText(context, "Bought ${item.drugName}", Toast.LENGTH_SHORT).show()
-        // Implement your buy logic here
+        // Implement Firestore logic if needed for "buy" action
     }
 
-    private fun handleDelete(item: CartItem) {
+    private fun handleDelete(item: MedicineCartItem) {
         AlertDialog.Builder(context)
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete ${item.drugName}?")
             .setPositiveButton("Yes") { _, _ ->
-                dbHelper.deleteCartItem(item.id)
-                (context as FragmentActivity).supportFragmentManager.findFragmentById(R.id.cartFragment)?.let {
-                    (it as MedicineCartFragment).refreshCart()
-                }
-                Toast.makeText(context, "${item.drugName} deleted", Toast.LENGTH_SHORT).show()
+                deleteItemFromFirestore(item.id)
             }
             .setNegativeButton("No", null)
             .show()
+    }
+
+    private fun deleteItemFromFirestore(itemId: String) {
+        db.collection("medicinecart").document(itemId)
+            .delete()
+            .addOnSuccessListener {
+                (context as FragmentActivity).supportFragmentManager.findFragmentById(R.id.cartFragment)?.let {
+                    (it as MedicineCartFragment).refreshCart()
+                }
+                Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Failed to delete item", Toast.LENGTH_SHORT).show()
+            }
     }
 }

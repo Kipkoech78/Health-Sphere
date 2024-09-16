@@ -56,6 +56,7 @@
     <string name="heading_description">Heading for slide number %1$d</string>
     <string name="description_description">Description for slide number %1$d</string>
     <string name="category_prompt">Select Category</string>
+    <string name="pain_killers">Pain Killers</string>
     <string-array name="doctor_categories">
         <item>Select Category</item>
         <item>Family Physician</item>
