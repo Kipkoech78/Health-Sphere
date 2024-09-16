@@ -7,7 +7,7 @@ class User (
     val email: String = "",
     val image: String = "",
     val gender: String = "",
-    var balance: Float = 1000f,
+    var balance: Float = 00f,
     var orders: List<Order> = emptyList(),
     val profileCompleted: Int = 1,
     val role: String = "user"

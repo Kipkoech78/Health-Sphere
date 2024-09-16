@@ -23,6 +23,7 @@
     <string name="errorInvalidEmail">Please enter a valid email address.</string>
     //validation
     <string name="please_wait">Please wait</string>
+    <string name="processing_payment">Processing Payment</string>
     <string name="Checkbox_error">Please agree to our terms and policies</string>
     <string name="email_error">Please input a Valid Email Address</string>
     <string name="errorPass">Please Input correct password</string>

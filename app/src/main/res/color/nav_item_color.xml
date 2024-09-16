@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Active/Selected state -->
+    <item android:color="@color/g_blue100" android:state_checked="true"/>
+    <!-- Inactive/Unselected state -->
+    <item android:color="@color/g_gray500"/>
+</selector>

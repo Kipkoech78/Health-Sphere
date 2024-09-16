@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "783944376406",
-    "project_id": "health-sphere-b7e27",
-    "storage_bucket": "health-sphere-b7e27.appspot.com"
+    "project_number": "827707165368",
+    "project_id": "health-sphere-1d2f0",
+    "storage_bucket": "health-sphere-1d2f0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783944376406:android:052050527196bba2fe1bf7",
+        "mobilesdk_app_id": "1:827707165368:android:65373af508cad7fded824d",
         "android_client_info": {
           "package_name": "com.example.healthsphere"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyATO0K3zXOO30wzalcsx8THuke6a_LzRN8"
+          "current_key": "AIzaSyA8bw8X7ql3Wvgn8Y0_1bZvVEbDhcBR8so"
         }
       ],
       "services": {

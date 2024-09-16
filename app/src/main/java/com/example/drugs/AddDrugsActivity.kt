@@ -112,7 +112,8 @@ class AddDrugsActivity : BazeActivity() {
             val description = etDescription.text.toString()
             val drugImg = ImageUrl.text.toString()
             val category = spinnerDrugCategory.selectedItem.toString()
-            if (drugName.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty() && category == "Select Category")  {
+            if (drugName.isNotEmpty() && price.isNotEmpty() && description.isNotEmpty() && category != "Select Category")  {
+                showProgressDialog(resources.getString(R.string.please_wait))
                 firestoreClass.addDrug(
                     drugName = drugName,
                     price = price,
@@ -121,12 +122,14 @@ class AddDrugsActivity : BazeActivity() {
                     description = description,
                     category = category,
                     onSuccess = {
-                        hideProgressDialog()
+
                         // Handle success (e.g., show a message or navigate to another activity)
                         Toast.makeText(this, "success drug added", Toast.LENGTH_SHORT).show()
                         etDrugName.text.clear()
                         etPrice.text.clear()
                         etDescription.text.clear()
+                        ImageUrl.text.clear()
+                        etSideEffects.text.clear()
                     },
                     onFailure = { e ->
                         hideProgressDialog()
@@ -134,6 +137,7 @@ class AddDrugsActivity : BazeActivity() {
                         Toast.makeText(this, "Failed to add drug: ${e.message}", Toast.LENGTH_SHORT).show()
                     })
             }else{
+                hideProgressDialog()
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             }
         }

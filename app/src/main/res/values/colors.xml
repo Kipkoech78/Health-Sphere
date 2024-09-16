@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#010D4E</color>
@@ -40,4 +41,6 @@
     <color name="g_gray500">#969899</color>
     <color name="g_orange">#F53D2F</color>
 
+
 </resources>
+

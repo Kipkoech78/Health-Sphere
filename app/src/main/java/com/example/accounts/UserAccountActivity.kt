@@ -57,6 +57,7 @@ class UserAccountActivity : AppCompatActivity() {
                     onSuccess = {
                         Log.d("UserAccountActivity", "Deposit successful")
                         loadUserBalance() // Refresh balance
+                        depositAmountEditText.text.clear()
                     },
                     onFailure = { e ->
                         Log.e("UserAccountActivity", "Error depositing money", e)

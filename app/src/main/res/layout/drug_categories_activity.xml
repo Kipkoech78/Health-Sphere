@@ -147,6 +147,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="70dp"
+                        android:background="@drawable/image_background"
                         android:src="@drawable/family_physicians" />
 
                     <TextView
@@ -288,31 +289,5 @@
 
         </LinearLayout>
     </HorizontalScrollView>
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="80dp"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_view"-->
-<!--        app:layout_constraintVertical_bias="0.728">-->
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:src="@drawable/shopping_cart_24"/>-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Medicine Cart"-->
-<!--            android:textSize="15dp"-->
-<!--            android:textColor="@color/white"/>-->
-
-
-
-<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

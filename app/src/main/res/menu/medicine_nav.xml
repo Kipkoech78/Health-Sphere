@@ -4,13 +4,14 @@
         android:id="@+id/navigation_medicine"
         android:icon="@drawable/pills_solid"
         android:title="Drugs" />
+    <item
+        android:id="@+id/orders_nav"
+        android:icon="@drawable/order"
+        android:title="Orders"/>
 
     <item
         android:id="@+id/navigation_cart"
         android:icon="@drawable/shopping_cart_24"
         android:title="Cart" />
-    <item
-        android:id="@+id/orders_nav"
-        android:icon="@drawable/order"
-        android:title="Orders"/>
+
 </menu>

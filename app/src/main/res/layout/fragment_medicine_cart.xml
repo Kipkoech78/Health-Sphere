@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cartFragment"
+    tools:context="com.example.drugs.MedicineCartFragment">
+
+        <ListView
+            android:id="@+id/list_View_cart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@color/blue_1"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/salmon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <TextView
+                android:id="@+id/textViewTotalPrice"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:backgroundTint="@color/blue_shade"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btnBuyAll"
+                android:padding="16dp"
+                android:textColor="@android:color/white"
+                android:text="Total Price: Ksh 0"
+                android:textSize="16sp"
+                />
+            <Button
+                android:id="@+id/btnBuyAll"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue_shade"
+                android:layout_alignParentBottom="true"
+                android:text="Buy All"
+                android:textColor="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
