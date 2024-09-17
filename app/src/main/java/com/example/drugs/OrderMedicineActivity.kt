@@ -107,8 +107,6 @@ class OrderMedicineActivity : AppCompatActivity() {
         }
 
         dateButton = findViewById(R.id.dateEditText)
-
-
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
@@ -162,7 +160,7 @@ class OrderMedicineActivity : AppCompatActivity() {
                                    date: String,
                                    fees: String,
                                    chemist: String) {
-        firestore.collection("medicine_orders")
+        firestore.collection("medicines_orders")
             .whereEqualTo("userId", userId)
             .whereEqualTo("drugName", drugName)
             .whereEqualTo("time", time)
