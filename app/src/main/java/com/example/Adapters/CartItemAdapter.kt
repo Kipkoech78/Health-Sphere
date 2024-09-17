@@ -1,6 +1,7 @@
 package com.example.Adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.example.drugs.MedicineCartFragment
+import com.example.drugs.OrderMedicineActivity
 import com.example.healthsphere.R
 import com.example.models.MedicineCartItem
 import com.google.firebase.firestore.FirebaseFirestore
@@ -50,8 +52,16 @@ class CartItemAdapter(
     }
 
     private fun handleBuy(item: MedicineCartItem) {
-        Toast.makeText(context, "Bought ${item.drugName}", Toast.LENGTH_SHORT).show()
-        // Implement Firestore logic if needed for "buy" action
+       // Toast.makeText(context, "Bought ${item.drugName}", Toast.LENGTH_SHORT).show()
+
+        // Create an intent to start the OrderMedicineActivity
+        val intent = Intent(context, OrderMedicineActivity::class.java).apply {
+            putExtra("price", item.price)          // Pass the price of the item
+            putExtra("medicine_Name", item.drugName) // Pass the name of the medicine
+        }
+
+        // Start the OrderMedicineActivity
+        context.startActivity(intent)
     }
 
     private fun handleDelete(item: MedicineCartItem) {

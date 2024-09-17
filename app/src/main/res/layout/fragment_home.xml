@@ -95,7 +95,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:id="@+id/clothingImage"
-                            android:src="@drawable/hospital_solid"
+                            android:src="@drawable/men"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
 
@@ -132,7 +132,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:id="@+id/elecImage"
-                            android:src="@drawable/hospital_solid"
+                            android:src="@drawable/intro_women"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
 
@@ -205,7 +205,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/beautyName"
-                            android:text="Reminder"
+                            android:text="Location"
                             android:textSize="20sp"
                             android:textColor="@color/black"
                             android:fontFamily="@font/poppins_medium"
@@ -217,7 +217,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:id="@+id/beautyImage"
-                            android:src="@drawable/hospital_solid"
+                            android:src="@drawable/location"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
 
@@ -266,7 +266,7 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:id="@+id/pharmImage"
-                            android:src="@drawable/hospital_solid"
+                            android:src="@drawable/vaccines"
                             android:layout_marginTop="15dp"
                             android:layout_centerHorizontal="true"/>
                     </RelativeLayout>

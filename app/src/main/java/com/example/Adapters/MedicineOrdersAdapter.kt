@@ -33,11 +33,13 @@ class MedicineOrdersAdapter(private val context: Context, private val orders: Li
         val feesTextView = view.findViewById<TextView>(R.id.feesTextView)
         val dateTextView = view.findViewById<TextView>(R.id.dateTextView)
         val timeTextView = view.findViewById<TextView>(R.id.timeTextView)
+        val OrdersTextView = view.findViewById<TextView>(R.id.orderId)
 
         drugNameTextView.text = order.drugName
         feesTextView.text = "Fees: Ksh ${order.fees}"
         dateTextView.text = "Date: ${order.date}"
         timeTextView.text = "Time: ${order.time}"
+        OrdersTextView.text = "Order Id: ${order.orderId}"
 
         return view
     }

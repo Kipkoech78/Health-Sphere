@@ -171,10 +171,6 @@ private fun handleBuyAll() {
 
         dialog.show()
     }
-
-
-
-
     private fun showConfirmationDialog(userId: String, totalPrice: Int, selectedChemist: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Confirm Purchase")
