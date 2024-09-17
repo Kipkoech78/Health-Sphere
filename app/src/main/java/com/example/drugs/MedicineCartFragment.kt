@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import com.example.Adapters.CartItemAdapter
@@ -90,40 +92,96 @@ class MedicineCartFragment : Fragment() {
             Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun handleBuyAll() {
-        if (cartItems.isEmpty()) {
-            Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        currentUser?.uid?.let { userId ->
-            db.collection("users").document(userId).get()
-                .addOnSuccessListener { document ->
-                    val userBalance = document.getLong("balance")?.toInt() ?: 0
-                    val totalPrice = cartItems.sumOf { it.price.toDouble() }.toInt()
-
-                    if (userBalance >= totalPrice) {
-                        // Show confirmation dialog
-                        showConfirmationDialog(userId, totalPrice)
-                    } else {
-                        // Show insufficient balance message
-                        Toast.makeText(requireContext(), "Insufficient balance. You need Ksh $totalPrice but you only have Ksh $userBalance.", Toast.LENGTH_LONG).show()
-                    }
-                }
-                .addOnFailureListener { e ->
-                    e.printStackTrace()
-                    Toast.makeText(requireContext(), "Failed to retrieve user balance", Toast.LENGTH_SHORT).show()
-                }
-        }
+//    private fun handleBuyAll() {
+//        if (cartItems.isEmpty()) {
+//            Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        currentUser?.uid?.let { userId ->
+//            db.collection("users").document(userId).get()
+//                .addOnSuccessListener { document ->
+//                    val userBalance = document.getLong("balance")?.toInt() ?: 0
+//                    val totalPrice = cartItems.sumOf { it.price.toDouble() }.toInt()
+//
+//                    if (userBalance >= totalPrice) {
+//                        // Show confirmation dialog
+//                        showConfirmationDialog(userId, totalPrice)
+//                    } else {
+//                        // Show insufficient balance message
+//                        Toast.makeText(requireContext(), "Insufficient balance. You need Ksh $totalPrice but you only have Ksh $userBalance.", Toast.LENGTH_LONG).show()
+//                    }
+//                }
+//                .addOnFailureListener { e ->
+//                    e.printStackTrace()
+//                    Toast.makeText(requireContext(), "Failed to retrieve user balance", Toast.LENGTH_SHORT).show()
+//                }
+//        }
+//    }
+private fun handleBuyAll() {
+    if (cartItems.isEmpty()) {
+        Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show()
+        return
     }
 
-    private fun showConfirmationDialog(userId: String, totalPrice: Int) {
+    currentUser?.uid?.let { userId ->
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { document ->
+                val userBalance = document.getLong("balance")?.toInt() ?: 0
+                val totalPrice = cartItems.sumOf { it.price.toDouble() }.toInt()
+
+                if (userBalance >= totalPrice) {
+                    // Show chemist selection popup
+                    showChemistSelectionDialog(userId, totalPrice)
+                } else {
+                    // Show insufficient balance message
+                    Toast.makeText(requireContext(), "Insufficient balance. You need Ksh $totalPrice but you only have Ksh $userBalance.", Toast.LENGTH_LONG).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                Toast.makeText(requireContext(), "Failed to retrieve user balance", Toast.LENGTH_SHORT).show()
+            }
+    }
+}
+    private fun showChemistSelectionDialog(userId: String, totalPrice: Int) {
+        // Inflate the custom dialog layout
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_select_chemist, null)
+        val spinnerChemist = dialogView.findViewById<Spinner>(R.id.spinnerChemist)
+        val btnProceedToPayment = dialogView.findViewById<Button>(R.id.btnProceedToPayment)
+
+        // Fetch the list of chemists from Firestore (or use a static list for now)
+        val chemists = resources.getStringArray(R.array.chemist_names)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, chemists)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerChemist.adapter = adapter
+
+        // Show the AlertDialog
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        btnProceedToPayment.setOnClickListener {
+            val selectedChemist = spinnerChemist.selectedItem.toString()
+
+            // Proceed with payment and pass the selected chemist
+            showConfirmationDialog(userId, totalPrice, selectedChemist)
+            dialog.dismiss() // Close the dialog
+        }
+
+        dialog.show()
+    }
+
+
+
+
+    private fun showConfirmationDialog(userId: String, totalPrice: Int, selectedChemist: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Confirm Purchase")
             .setMessage("You are about to spend Ksh $totalPrice. Do you want to proceed?")
             .setPositiveButton("Yes") { dialog, _ ->
                 // Proceed with the purchase
-                processPurchase(userId, totalPrice)
+                processPurchase(userId, totalPrice, selectedChemist)
                 dialog.dismiss()
             }
             .setNegativeButton("No") { dialog, _ ->
@@ -134,8 +192,8 @@ class MedicineCartFragment : Fragment() {
             .show()
     }
 
-    private fun processPurchase(userId: String, totalPrice: Int) {
-        Log.d("MedicineCartFragment", "Processing purchase for user: $userId, Total Price: $totalPrice")
+    private fun processPurchase(userId: String, totalPrice: Int, selectedChemist: String) {
+        Log.d("MedicineCartFragment", "Processing purchase for user: $userId, Total Price: $totalPrice, Chemist: $selectedChemist")
 
         // Deduct balance from the user's account in Firestore
         db.collection("users").document(userId)
@@ -144,7 +202,7 @@ class MedicineCartFragment : Fragment() {
                 Log.d("MedicineCartFragment", "Balance updated successfully")
 
                 // Add purchased items to medicineOrders collection
-                addItemsToMedicineOrders(userId, totalPrice)
+                addItemsToMedicineOrders(userId, totalPrice, selectedChemist)
 
                 // Clear the cart
                 completeTransaction(userId)
@@ -154,6 +212,54 @@ class MedicineCartFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to complete purchase", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun addItemsToMedicineOrders(userId: String, totalPrice: Int, selectedChemist: String) {
+        val medicineOrdersCollection = db.collection("medicines_orders")
+
+        for (item in cartItems) {
+            val orderRef = medicineOrdersCollection.document()
+
+            val order = medicineOrder(
+                orderId = orderRef.id,
+                userId = userId,
+                drugName = item.drugName,
+                time = getCurrentTime(),
+                date = getCurrentDate(),
+                fees = item.price,
+                chemist = selectedChemist
+            )
+
+            orderRef.set(order)
+                .addOnSuccessListener {
+                    Log.d("MedicineCartFragment", "Item added to medicineOrders: ${item.drugName}")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("MedicineCartFragment", "Failed to add item to medicineOrders", e)
+                }
+        }
+    }
+
+
+    //    private fun processPurchase(userId: String, totalPrice: Int) {
+//        Log.d("MedicineCartFragment", "Processing purchase for user: $userId, Total Price: $totalPrice")
+//
+//        // Deduct balance from the user's account in Firestore
+//        db.collection("users").document(userId)
+//            .update("balance", FieldValue.increment(-totalPrice.toLong()))
+//            .addOnSuccessListener {
+//                Log.d("MedicineCartFragment", "Balance updated successfully")
+//
+//                // Add purchased items to medicineOrders collection
+//                addItemsToMedicineOrders(userId, totalPrice)
+//
+//                // Clear the cart
+//                completeTransaction(userId)
+//            }
+//            .addOnFailureListener { e ->
+//                Log.e("MedicineCartFragment", "Failed to update balance", e)
+//                Toast.makeText(requireContext(), "Failed to complete purchase", Toast.LENGTH_SHORT).show()
+//            }
+//    }
     private fun addItemsToMedicineOrders(userId: String, totalPrice: Int) {
         val medicineOrdersCollection = db.collection("medicines_orders") // Top-level collection
 
@@ -218,17 +324,45 @@ class MedicineCartFragment : Fragment() {
     }
     private fun completeTransaction(userId: String) {
         // Clear the cart in Firestore after a successful purchase
-        db.collection("users").document(userId).collection("medicinecart")
+        db.collection("medicinecart")
+            .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    db.collection("users").document(userId)
-                        .collection("medicinecart").document(document.id).delete()
+                    // Delete each document (cart item) from Firestore
+                    db.collection("medicinecart").document(document.id).delete()
+                        .addOnSuccessListener {
+                            Log.d("MedicineCartFragment", "Cart item deleted: ${document.id}")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("MedicineCartFragment", "Failed to delete cart item", e)
+                        }
                 }
-                refreshCart() // Refresh the cart UI after clearing it
+                // Show a message indicating the cart has been cleared
+                Toast.makeText(requireContext(), "Transaction completed. Cart is now empty.", Toast.LENGTH_SHORT).show()
+
+                // Optionally, refresh the cart UI
+                refreshCart()
             }
             .addOnFailureListener { e ->
                 Log.e("MedicineCartFragment", "Failed to clear cart", e)
+                Toast.makeText(requireContext(), "Failed to clear the cart", Toast.LENGTH_SHORT).show()
             }
     }
+
+//    private fun completeTransaction(userId: String) {
+//        // Clear the cart in Firestore after a successful purchase
+//        db.collection("users").document(userId).collection("medicinecart")
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                for (document in documents) {
+//                    db.collection("users").document(userId)
+//                        .collection("medicinecart").document(document.id).delete()
+//                }
+//                refreshCart() // Refresh the cart UI after clearing it
+//            }
+//            .addOnFailureListener { e ->
+//                Log.e("MedicineCartFragment", "Failed to clear cart", e)
+//            }
+//    }
 }
