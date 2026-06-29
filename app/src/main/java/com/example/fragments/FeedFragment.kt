@@ -41,7 +41,7 @@ class FeedFragment : Fragment() {
         feedsArrayList = arrayListOf()
         recyclerView = view.findViewById(R.id.Feedrecycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
         adapterClass = FeedAdapterClass(feedsArrayList)
         recyclerView.adapter = adapterClass
         loadFeedsFromJson()

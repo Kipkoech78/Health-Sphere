@@ -107,8 +107,11 @@ class SignIn :  BazeActivity() {
                 .addOnCompleteListener { task ->
 
                     if(task.isSuccessful){
+                        val intent = Intent(this@SignIn, MainActivity::class.java)
+                        startActivity(intent)
 
                         FirestoreClass().getUserDetails(this@SignIn)
+                        finish()
                     }else{
                         hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)

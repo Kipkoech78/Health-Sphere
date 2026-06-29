@@ -36,7 +36,7 @@ class WorkoutFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
         adapterClass = AdapterClass(workoutArrayList)
         recyclerView.adapter = adapterClass
     }
